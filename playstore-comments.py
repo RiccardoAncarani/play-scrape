@@ -2,6 +2,7 @@ import requests
 import re
 from nltk.corpus import stopwords
 from wordcloud import WordCloud
+from optparse import OptionParser
 import sys
 
 def getGooglePlayReviews(page):
@@ -47,6 +48,28 @@ def showCloudFromList(final_list):
     wordcloud = WordCloud().generate(" ".join(final_list))
     showWordCloud(wordcloud)
 
+
+
+
+def main():
+    parser = OptionParser(usage="usage: %prog [options] filename",
+                          version="%prog 1.0")
+    parser.add_option("-p", "--pages",
+                      action="store", # optional because action defaults to "store"
+                      dest="pages",
+                      default=5,
+                      help="The number of pages you want to scrape",)
+    parser.add_option("-i", "--id",
+                      action="store", # optional because action defaults to "store"
+                      dest="app_id",
+                      default="com.facebook.katana",
+                      help="The id of the app you want to scrape comments",)
+    (options, args) = parser.parse_args()
+
+    print options
+    print args
+
 if __name__ == '__main__':
-    s = getNPages(int(sys.argv[1]))
-    print s
+    main()
+    #s = getNPages(int(sys.argv[1]))
+    #print s
