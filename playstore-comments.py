@@ -4,6 +4,7 @@ from nltk.corpus import stopwords
 from wordcloud import WordCloud
 from optparse import OptionParser
 from matplotlib.cbook import dedent
+import json
 
 def getGooglePlayReviews(id,page):
     headers = {        
@@ -26,7 +27,7 @@ def getGooglePlayReviews(id,page):
 
 def getNPages(id,n):
     s = []
-    [[s.append(x) for x in getGooglePlayReviews(id,i)] for i in range(1,n)]
+    [[s.append(x) for x in getGooglePlayReviews(id,i)] for i in range(  n)]
     s = [x[25:-24] for x in s]
     return s
 
@@ -51,12 +52,12 @@ def showCloudFromList(final_list):
 
 def banner():
     banner = """
-    __________.__                   _________ __                        
-\______   \  | _____  ___.__.  /   _____//  |_  ___________   ____  
- |     ___/  | \__  \<   |  |  \_____  \\   __\/  _ \_  __ \_/ __ \ 
- |    |   |  |__/ __ \\___  |  /        \|  | (  <_> )  | \/\  ___/ 
- |____|   |____(____  / ____| /_______  /|__|  \____/|__|    \___  >
-                    \/\/              \/                         \/ """
+__________.__                   _________                                  
+\______   \  | _____  ___.__.  /   _____/ ________________  ______   ____  
+ |     ___/  | \__  \<   |  |  \_____  \_/ ___\_  __ \__  \ \____ \_/ __ \ 
+ |    |   |  |__/ __ \\___  |  /        \  \___|  | \// __ \|  |_> >  ___/ 
+ |____|   |____(____  / ____| /_______  /\___  >__|  (____  /   __/ \___  >
+                    \/\/              \/     \/           \/|__|        \/ """
     print banner
 
 def main():
