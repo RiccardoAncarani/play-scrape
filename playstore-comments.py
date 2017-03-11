@@ -5,14 +5,9 @@ from wordcloud import WordCloud
 
 def getGooglePlayReviews(page):
     headers = {
-        "SID": "yANwZ3AJKyjH3S71nz2HgfOl_1VdFOgmLtl1g1BCvY0QAlvtgivx_eilmVs4BYPE8w4b2g.",
-        "HSID" : "AWqhVubYdnMcSTZ9U",
-        "SSID" : "Awy2l-Qi6gnmV-SPN",
-        "APISID" : "wjGZiaLk1OArK0yb/AHrzTzAroxAQM7Ec5",
-        "SAPISID": "2tcp1a41bgMToGg8/AbzuHanNUAHw469Gx",
+        
         "CONSENT":"YES+IT.it+20160117-18-0",
-        "_ga":"GA1.3.505160875.1474322573",
-        "OGPC" : "5061821-8:"
+        
     }
 
     data = {
@@ -36,7 +31,7 @@ def getNPages(n):
     s = [x[25:-24] for x in s]
     return s
 
-
+s = getNPages(5)
 stop = set(stopwords.words('italian'))
 final_list = [" ".join([i for i in x.lower().split() if i not in stop]) for x in s]
 def showWordCloud(wordcloud):
