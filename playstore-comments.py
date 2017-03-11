@@ -5,7 +5,7 @@ from wordcloud import WordCloud
 from optparse import OptionParser
 import sys
 
-def getGooglePlayReviews(page):
+def getGooglePlayReviews(id,page):
     headers = {        
         "CONSENT":"YES+IT.it+20160117-18-0",
         }
@@ -13,7 +13,7 @@ def getGooglePlayReviews(page):
     data = {
         "reviewType": 0,
         "pageNum" :page,
-        "id":"com.facebook.katana",
+        "id":id,
         "reviewSortOrder":4,
         "xhr": 1,        
         "hl":"it"
@@ -24,9 +24,9 @@ def getGooglePlayReviews(page):
     [x.append(y) for (a,y,b) in revs]
     return x
 
-def getNPages(n):
+def getNPages(id,n):
     s = []
-    [[s.append(x) for x in getGooglePlayReviews(i)] for i in range(1,n)]
+    [[s.append(x) for x in getGooglePlayReviews(id,i)] for i in range(1,n)]
     s = [x[25:-24] for x in s]
     return s
 
@@ -67,9 +67,10 @@ def main():
     (options, args) = parser.parse_args()
 
     print options
-    print args
+
+    s = getNPages(options.app_id,int(options.pages))
+    print s
 
 if __name__ == '__main__':
     main()
-    #s = getNPages(int(sys.argv[1]))
-    #print s
+    
