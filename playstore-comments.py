@@ -38,12 +38,15 @@ def showWordCloud(wordcloud):
     plt.axis("off")
     plt.show()
 
+def processAndPlot(s):
+    stop = set(stopwords.words('italian'))
+    final_list = [" ".join([i for i in x.lower().split() if i not in stop]) for x in s]
+    showCloudFromList(final_list)
+
 def showCloudFromList(final_list):
     wordcloud = WordCloud().generate(" ".join(final_list))
     showWordCloud(wordcloud)
 
 if __name__ == '__main__':
     s = getNPages(int(sys.argv[1]))
-    stop = set(stopwords.words('italian'))
-    final_list = [" ".join([i for i in x.lower().split() if i not in stop]) for x in s]
-    showCloudFromList(final_list)
+    print s
