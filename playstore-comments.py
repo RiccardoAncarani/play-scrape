@@ -21,6 +21,8 @@ def getGooglePlayReviews(id,page):
     }
     r = requests.post("https://play.google.com/store/getreviews?authuser=0", headers=headers, data=data)
     revs = re.findall("(review-title)(.*?)(review-link)",r.text)
+    stars = re.findall("Valutato con (.*?) stelle su cinque" ,r.text)
+    print stars
     x = []
     [x.append(y) for (a,y,b) in revs]
     return x
