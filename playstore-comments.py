@@ -3,7 +3,7 @@ import re
 from nltk.corpus import stopwords
 from wordcloud import WordCloud
 from optparse import OptionParser
-import sys
+from matplotlib.cbook import dedent
 
 def getGooglePlayReviews(id,page):
     headers = {        
@@ -49,9 +49,18 @@ def showCloudFromList(final_list):
     showWordCloud(wordcloud)
 
 
-
+def banner():
+    banner = """
+    __________.__                   _________ __                        
+\______   \  | _____  ___.__.  /   _____//  |_  ___________   ____  
+ |     ___/  | \__  \<   |  |  \_____  \\   __\/  _ \_  __ \_/ __ \ 
+ |    |   |  |__/ __ \\___  |  /        \|  | (  <_> )  | \/\  ___/ 
+ |____|   |____(____  / ____| /_______  /|__|  \____/|__|    \___  >
+                    \/\/              \/                         \/ """
+    print banner
 
 def main():
+    banner()
     parser = OptionParser(usage="usage: %prog [options] filename",
                           version="%prog 1.0")
     parser.add_option("-p", "--pages",
@@ -65,9 +74,6 @@ def main():
                       default="com.facebook.katana",
                       help="The id of the app you want to scrape comments",)
     (options, args) = parser.parse_args()
-
-    print options
-
     s = getNPages(options.app_id,int(options.pages))
     print s
 
