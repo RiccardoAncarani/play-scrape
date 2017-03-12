@@ -22,19 +22,17 @@ def getGooglePlayReviews(id,page):
     r = requests.post("https://play.google.com/store/getreviews?authuser=0", headers=headers, data=data)
     revs = re.findall("(review-title)(.*?)(review-link)",r.text)
     stars = re.findall("Valutato con (.*?) stelle su cinque" ,r.text)
-    print stars
     x = []
+    tmp = []
     [x.append(y) for (a,y,b) in revs]
-    return x
+    for i,rev in enumerate(x):
+        tmp.append({"rating":stars[i],"review":rev[25:-24]})
+    return tmp
 
 def getNPages(id,n):
     s = []
-    [[s.append(x) for x in getGooglePlayReviews(id,i)] for i in range(  n)]
-    s = [x[25:-24] for x in s]
+    [[s.append(x) for x in getGooglePlayReviews(id,i)] for i in range(n)]
     return s
-
-
-
 
 def showWordCloud(wordcloud):
     import matplotlib.pyplot as plt
@@ -67,12 +65,12 @@ def main():
     parser = OptionParser(usage="usage: %prog [options] filename",
                           version="%prog 1.0")
     parser.add_option("-p", "--pages",
-                      action="store", # optional because action defaults to "store"
+                      action="store", 
                       dest="pages",
                       default=5,
                       help="The number of pages you want to scrape",)
     parser.add_option("-i", "--id",
-                      action="store", # optional because action defaults to "store"
+                      action="store", 
                       dest="app_id",
                       default="com.facebook.katana",
                       help="The id of the app you want to scrape comments",)
