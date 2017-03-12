@@ -48,3 +48,4 @@ The output is a JSON file with this structure:
 
 ## Note:
 This script currently only supports Italian comments, the generalization will be quite easy and I'll do it in the next future.
+There is also a Jupyter Notebook in this repo, it's first version of this script, **really messy**.
