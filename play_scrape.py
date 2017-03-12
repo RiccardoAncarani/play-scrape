@@ -1,7 +1,5 @@
 import requests
 import re
-from nltk.corpus import stopwords
-from wordcloud import WordCloud
 from optparse import OptionParser
 from matplotlib.cbook import dedent
 import json
