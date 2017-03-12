@@ -35,21 +35,6 @@ def getNPages(id,n):
     [[s.append(x) for x in getGooglePlayReviews(id,i)] for i in range(n)]
     return s
 
-def showWordCloud(wordcloud):
-    import matplotlib.pyplot as plt
-    plt.imshow(wordcloud)
-    plt.axis("off")
-    plt.show()
-
-def processAndPlot(s):
-    stop = set(stopwords.words('italian'))
-    final_list = [" ".join([i for i in x.lower().split() if i not in stop]) for x in s]
-    showCloudFromList(final_list)
-
-def showCloudFromList(final_list):
-    wordcloud = WordCloud().generate(" ".join(final_list))
-    showWordCloud(wordcloud)
-
 
 def banner():
     banner = """
@@ -81,6 +66,9 @@ def main():
                       dest="output",
                       default="output.json",
                       help="The output file where you want to dump results",)
+    parser.add_option("-v", "--verbose",
+                  action="store_false", dest="verbose", default=False,
+                  help="Visualize the wordcloud associated with your results")
     (options, args) = parser.parse_args()
     print "[*] Downloading the first " + str(options.pages) + " pages from: " + options.app_id
     s = getNPages(options.app_id,int(options.pages))
