@@ -26,7 +26,8 @@ def getGooglePlayReviews(id,page):
     tmp = []
     [x.append(y) for (a,y,b) in revs]
     for i,rev in enumerate(x):
-        tmp.append({"rating":stars[i],"review":rev[25:-24]})
+        tmp.append({"rating":int(stars[i]),"review":rev[25:-24].replace("span","")})
+    print "[*] Retrieved " + str(len(tmp)) + " reviews"
     return tmp
 
 def getNPages(id,n):
@@ -57,7 +58,8 @@ __________.__                   _________
  |     ___/  | \__  \<   |  |  \_____  \_/ ___\_  __ \__  \ \____ \_/ __ \ 
  |    |   |  |__/ __ \\___  |  /        \  \___|  | \// __ \|  |_> >  ___/ 
  |____|   |____(____  / ____| /_______  /\___  >__|  (____  /   __/ \___  >
-                    \/\/              \/     \/           \/|__|        \/ """
+                    \/\/              \/     \/           \/|__|        \/ 
+                    Author Ancarani Riccardo"""
     print banner
 
 def main():
@@ -74,9 +76,17 @@ def main():
                       dest="app_id",
                       default="com.facebook.katana",
                       help="The id of the app you want to scrape comments",)
+    parser.add_option("-o", "--output",
+                      action="store", 
+                      dest="output",
+                      default="output.json",
+                      help="The output file where you want to dump results",)
     (options, args) = parser.parse_args()
+    print "[*] Downloading the first " + str(options.pages) + " pages from: " + options.app_id
     s = getNPages(options.app_id,int(options.pages))
-    print s
+    with open(options.output,"w+") as output_file:
+        json.dump({"results": s},output_file)
+    
 
 if __name__ == '__main__':
     main()
